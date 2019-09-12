@@ -18,7 +18,7 @@ class FiniteAutomata(object):
 
     def find_state(self, state=None):
         if state is None:
-            state = self.self.__next_new_state 
+            state = self.__next_new_state 
         else:
             state += 1
         try:
@@ -112,10 +112,9 @@ class FiniteAutomata(object):
                     self.create_transition(state, char, next_state)
                     state = next_state
         except:
-            print('deu erro mano')
+            print("deu erro ai irmão")
             pass
 
     def show(self):
-        print(self.__alphabet)
         for state, value in self.__fa.items():
             print(state, '=>', value, '\n')
