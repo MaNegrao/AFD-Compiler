@@ -4,11 +4,11 @@ class FiniteAutomata(object):
     __error_state = -1
     __alphabet = []
     __fa = {}
-    __next_state = 0
+    __next_new_state = 0
 
     __input_folder = 'set'
 
-    __tokens_file = 'tokens.csv'
+    __tokens_file = 'tokens.in'
     __gramma_file = 'gramma.in'
 
     def __init__(self):
@@ -16,24 +16,25 @@ class FiniteAutomata(object):
         self.map_tokens()
         self.show()
 
-    def get_avaible_state(self, state=None):
-    if state is None:
-        state = self.__NEXT_NEW_STATE
-    else:
-        state += 1
-    try:
-        while self.__FA[state]['final']:
+    def find_state(self, state=None):
+        if state is None:
+            state = self.self.__next_new_state 
+        else:
             state += 1
-    except:
-        pass
-    return state
+        try:
+            while self.__fa[state]['final']:
+                state += 1
+        except:
+            pass
+        return state
 
     def create_state(self, state, final=False, parents=[]):
         if not state in self.__fa:
             self.__fa[state] = {'final': final, 'parents': parents}
-            self.__next_state += 1
+            self.__next_new_state += 1
             for char in self.__alphabet:
                 self.__fa[state][char] = []
+
         elif not self.__fa[state]['final']:
             self.__fa[state]['final'] = final
 
@@ -87,7 +88,7 @@ class FiniteAutomata(object):
         except:
             pass
 
-    def map_tokens(file): 
+    def map_tokens(self): 
         try:
             file = open(self.__input_folder+'/'+self.__tokens_file, 'r')
             for token in file:    
@@ -102,16 +103,19 @@ class FiniteAutomata(object):
                     next_state = None
 
                     if i < token_len-1:
-                        next_state = self.get_avaible_state(state)
+                        next_state = self.find_state(state)
                         self.create_state(next_state)
                     else:
-                        next_state = self,get_avaible_state()
+                        next_state = self.find_state()
                         self.create_state(next_state, True)
-
+                    
+                    self.create_transition(state, char, next_state)
+                    state = next_state
         except:
+            print('deu erro mano')
             pass
 
     def show(self):
-        print(self.__fa)
+        print(self.__alphabet)
         for state, value in self.__fa.items():
             print(state, '=>', value, '\n')
