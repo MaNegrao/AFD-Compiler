@@ -117,6 +117,26 @@ class FiniteAutomata(object):
             print("deu erro ai irmão")
             pass
 
+    def determinize_state():
+        for char in self.__alphabet:
+            next_states = self.__fa[state][char]
+            if type(next_states) == list:
+                if len(next_states) == 1:
+                    self.__fa[state][char] = next_states[0]
+                elif len(next_states) == 0:
+                    self.__fa[state][char] = None
+                else:
+                    
+
+
+    def determinize():
+        fa = self.__fa.copy()
+        for state in fa:
+            self.determinize_state(state)
+
+    
+
+
     def show(self):
         for state, value in self.__fa.items():
             print(state, '=>', value, '\n')
