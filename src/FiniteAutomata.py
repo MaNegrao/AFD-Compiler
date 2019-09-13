@@ -5,15 +5,17 @@ class FiniteAutomata(object):
     __alphabet = []
     __fa = {}
     __next_new_state = 0
-
+    #config folders and files
     __input_folder = 'set'
-
     __tokens_file = 'tokens.in'
     __gramma_file = 'gramma.in'
 
     def __init__(self):
+        #mapping transitions
         self.map_gramma()
         self.map_tokens()
+        #determinize FA
+        self.determinize()
         self.show()
 
     def find_state(self, state=None):
@@ -28,6 +30,12 @@ class FiniteAutomata(object):
             pass
         return state
 
+    def append_char(self, char):
+        if not char in self.__alphabet:
+            self.__alphabet.append(char)
+            for state in self.__fa:
+                self.__fa[state][char] = []
+
     def create_state(self, state, final=False, parents=[]):
         if not state in self.__fa:
             self.__fa[state] = {'final': final, 'parents': parents}
@@ -37,12 +45,6 @@ class FiniteAutomata(object):
 
         elif not self.__fa[state]['final']:
             self.__fa[state]['final'] = final
-
-    def append_char(self, char):
-        if not char in self.__alphabet:
-            self.__alphabet.append(char)
-            for state in self.__fa:
-                self.__fa[state][char] = []
 
     def create_transition(self, state, char, next_state):
         if type(self.__fa[state][char]) == list:
