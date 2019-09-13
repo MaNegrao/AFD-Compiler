@@ -117,17 +117,35 @@ class FiniteAutomata(object):
             print("deu erro ai irmão")
             pass
 
+    def find_state_by_parents(self, parents):
+        for state in self.__fa:
+            if self.__fa[state]['parents'] == parents:
+                return state
+
     def determinize_state():
         for char in self.__alphabet:
             next_states = self.__fa[state][char]
             if type(next_states) == list:
+                #if the transtion has only one state, keep this one
                 if len(next_states) == 1:
                     self.__fa[state][char] = next_states[0]
                 elif len(next_states) == 0:
                     self.__fa[state][char] = None
                 else:
-                    
-
+                    parents = []
+                    for next_state in next_states:
+                        if next_state not in parents:
+                            parents.appent(next_state)
+                    new_state = self.find_state_by_parents(parents)
+                    if new_state is not None:
+                        self.__fa[state][char] = new_state
+                    else:
+                        new_state = self.find_state()
+                        self.__fa[state][char] = new_state
+                        self.create_state(new_state, parents=parents)
+                        for next_state in next_states:
+                            self.merge_states(new_state, next_state)
+                        self.determinize_state(new_state)
 
     def determinize():
         fa = self.__fa.copy()
