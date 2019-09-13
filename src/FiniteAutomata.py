@@ -117,12 +117,24 @@ class FiniteAutomata(object):
             print("deu erro ai irmão")
             pass
 
+    def merge_states(self, state, next_state):
+        if self.__fa[next_state]['final']:
+            self.__fa[state]['final'] = True
+        
+        for char in self.__alphabet:
+            states = self.__fa[next_state][char]
+            if type(states) is list:
+                for s in states:
+                    self.create_transition(state, char, s)
+            elif type(states) is int:
+                self.create_transition(state, char, states)
+
     def find_state_by_parents(self, parents):
         for state in self.__fa:
             if self.__fa[state]['parents'] == parents:
                 return state
 
-    def determinize_state():
+    def determinize_state(self, state):
         for char in self.__alphabet:
             next_states = self.__fa[state][char]
             if type(next_states) == list:
@@ -135,7 +147,7 @@ class FiniteAutomata(object):
                     parents = []
                     for next_state in next_states:
                         if next_state not in parents:
-                            parents.appent(next_state)
+                            parents.append(next_state)
                     new_state = self.find_state_by_parents(parents)
                     if new_state is not None:
                         self.__fa[state][char] = new_state
@@ -147,7 +159,7 @@ class FiniteAutomata(object):
                             self.merge_states(new_state, next_state)
                         self.determinize_state(new_state)
 
-    def determinize():
+    def determinize(self):
         fa = self.__fa.copy()
         for state in fa:
             self.determinize_state(state)
