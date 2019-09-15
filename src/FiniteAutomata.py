@@ -15,7 +15,13 @@ class FiniteAutomata(object):
         self.map_gramma()
         self.map_tokens()
         #determinize FA
-        self.determinize()
+        self.determinize() 
+        #removing useless
+        self.remove_unreacheble()
+        self.remove_dead()
+        #mapping error state
+        self.map_error_state()
+        #showing complete FA
         self.show()
 
     def find_state(self, state=None):
