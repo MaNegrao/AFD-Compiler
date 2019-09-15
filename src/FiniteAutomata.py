@@ -196,7 +196,11 @@ class FiniteAutomata(object):
                         del self.__ fa[state]
 
     def map_error_state(self):
-        
+        self.create_state(self.__error_state, final=True)
+        for state in self.__fa:
+            for char in self.__alphabet:
+                if self.__fa[state][char] is None or type(self.__fa[state][char]) == list:
+                    self.__fa[state][char] = self.__error_state
     def show(self):
         for state, value in self.__fa.items():
             print(state, '=>', value, '\n')
