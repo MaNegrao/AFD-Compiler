@@ -195,6 +195,8 @@ class FiniteAutomata(object):
                         print(state, ' is dead!')
                         del self.__ fa[state]
 
+    def map_error_state(self):
+        
     def show(self):
         for state, value in self.__fa.items():
             print(state, '=>', value, '\n')
