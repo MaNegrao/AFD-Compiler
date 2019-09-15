@@ -164,8 +164,36 @@ class FiniteAutomata(object):
         for state in fa:
             self.determinize_state(state)
 
-    
+    def find_reacheble(self, initial_state = __initial_state):
+        reacheble = [initial_state]
+        verified = []
 
+        for state in reacheble:
+            for char in self.__alphabet:
+                next_state = self.__fa[state][char]
+                if next_state and not state in verified and not next_state in reacheble:
+                    reacheble.append(next_state)
+            if not state in verified:
+                verified.append(state)
+        return reacheble
+
+    def remove_unreacheble(self):
+        reacheble = self.find_reacheble()
+        for state in self.__fa.copy():
+            if not state in reacheble:
+                del self.__fa[state]
+    
+    def remove_dead(self):
+        for state in self.__fa.copy():
+            if not self.__fa[state]['final']:
+                reacheble = find_reacheble(state)
+                dead = True:
+                for next_state in reacheble:
+                    if dead and self.__fa[next_state]['final']:
+                        dead = False
+                    if dead:
+                        print(state, ' is dead!')
+                        del self.__ fa[state]
 
     def show(self):
         for state, value in self.__fa.items():
