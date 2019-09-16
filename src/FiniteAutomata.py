@@ -192,14 +192,14 @@ class FiniteAutomata(object):
     def remove_dead(self):
         for state in self.__fa.copy():
             if not self.__fa[state]['final']:
-                reacheble = find_reacheble(state)
-                dead = True:
+                reacheble = self.find_reacheble(state)
+                dead = True
                 for next_state in reacheble:
                     if dead and self.__fa[next_state]['final']:
                         dead = False
                     if dead:
                         print(state, ' is dead!')
-                        del self.__ fa[state]
+                        del self.__fa[state]
 
     def map_error_state(self):
         self.create_state(self.__error_state, final=True)
