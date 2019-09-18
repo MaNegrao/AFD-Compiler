@@ -197,9 +197,9 @@ class FiniteAutomata(object):
                 for next_state in reacheble:
                     if dead and self.__fa[next_state]['final']:
                         dead = False
-                    if dead:
-                        print(state, ' is dead!')
-                        del self.__fa[state]
+                if dead:
+                    print(state, ' is dead!')
+                    del self.__fa[state]
 
     def map_error_state(self):
         self.create_state(self.__error_state, final=True)
