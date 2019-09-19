@@ -5,6 +5,7 @@ for
 =
 ==
 -
+'
 cell
 crossover
 dna
@@ -12,11 +13,13 @@ rna
 base
 >
 <
+>=
+<=
+!=
 {
 }
 (
 )
-[
-]
+.
 TRUE
 FALSE
