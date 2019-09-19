@@ -66,7 +66,7 @@ class LexicalAnalyzer(object):
             if state == -1 or not self.is_final(state):
                 print("Lexical error! Token: {} State: {}", token, state)
             else:
-                self.__symbol_table.append({state : })
+                self.__symbol_table.append({state : None})
 
     def output(self):
         print(self.__symbol_table)
