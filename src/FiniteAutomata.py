@@ -6,9 +6,10 @@ class FiniteAutomata(object):
     __fa = {}
     __next_new_state = 0
     #config folders and files
-    __input_folder = 'set'
+    __set_folder = 'set'
     __tokens_file = 'tokens.in'
     __gramma_file = 'gramma.in'
+    __fa_file = 'fa.in'
 
     def __init__(self):
         #mapping transitions
@@ -22,7 +23,14 @@ class FiniteAutomata(object):
         #mapping error state
         self.map_error_state()
         #showing complete FA
-        self.show()
+        #self.show()
+        self.save()
+
+    def save(self):
+        file = open(self.__set_folder+'/'+self.__fa_file, 'w')
+        #for state in self.__fa:
+        file.write(str(self.__fa))
+        file.close()
 
     def find_state(self, state=None):
         if state is None:
@@ -59,7 +67,7 @@ class FiniteAutomata(object):
     
     def map_gramma(self):
         try:
-            file = open(self.__input_folder+'/'+self.__gramma_file, 'r')
+            file = open(self.__set_folder+'/'+self.__gramma_file, 'r')
             for gramma in file:
                 # Removing unused characters
                 gramma = gramma.replace('\n', '')
@@ -98,7 +106,7 @@ class FiniteAutomata(object):
 
     def map_tokens(self): 
         try:
-            file = open(self.__input_folder+'/'+self.__tokens_file, 'r')
+            file = open(self.__set_folder+'/'+self.__tokens_file, 'r')
             for token in file:    
                 token = token.replace('\n', '')
                 token_len = len(token)
@@ -207,6 +215,11 @@ class FiniteAutomata(object):
             for char in self.__alphabet:
                 if self.__fa[state][char] is None or type(self.__fa[state][char]) == list:
                     self.__fa[state][char] = self.__error_state
+   
     def show(self):
+        print(self.__fa)
         for state, value in self.__fa.items():
             print(state, '=>', value, '\n')
+
+    def output(self):
+        return self.__fa
