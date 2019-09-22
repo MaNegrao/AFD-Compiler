@@ -1,2 +1,8 @@
 dna ben = 'atagatcagac'
 rna solo = 'gtcatacatg'
+base q = 'a'
+
+cell epitelial{
+	dna dna_epitelial
+}
+
