@@ -16,7 +16,7 @@ class FiniteAutomata(object):
         self.map_gramma()
         self.map_tokens()
         #determinize FA
-        self.determinize() 
+        self.determinize() #some problem in determinize
         #removing useless
         self.remove_unreacheble()
         self.remove_dead()
@@ -148,7 +148,7 @@ class FiniteAutomata(object):
             if self.__fa[state]['parents'] == parents:
                 return state
 
-    def determinize_state(self, state):
+    def determinize_state(self, state): #some state for 2 productions
         for char in self.__alphabet:
             next_states = self.__fa[state][char]
             if type(next_states) == list:
