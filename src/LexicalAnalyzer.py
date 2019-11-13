@@ -98,6 +98,7 @@ class LexicalAnalyzer(object):
                     self.__symbol_table.append({
                         'line': line_count,
                         'column': i,
+                        'identation': identation,
                         'state': state,
                         'tag': token
                     })
@@ -119,5 +120,5 @@ class LexicalAnalyzer(object):
                 self.__symbol_table.append({state : None})
 
     def output(self):
-        print(self.__symbol_table)
+        print(self.__out)
         return self.__symbol_table
