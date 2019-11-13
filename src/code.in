@@ -1,9 +1,9 @@
-dna ben = 'atagatcagac'
-rna solo = 'gtcatacatg'
+dna ben='atagatcagac'
+rna solo='gtcatacatg'
 base q = 'a'
 
-cell epitelial{
+cell epitelial:
 	dna dna_epitelial
-}
+
 
 crossover ben to solo
